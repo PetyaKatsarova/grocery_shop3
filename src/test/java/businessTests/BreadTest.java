@@ -2,6 +2,7 @@ package businessTests;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import com.example.grocery_shop3.model.Bread;
 
 class BreadTest {
 
