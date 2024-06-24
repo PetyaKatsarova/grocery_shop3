@@ -1,6 +1,6 @@
 // File: src/main/java/com/grocerystore/model/Order.java
 
-package com.grocerystore.model;
+package com.example.grocery_shop3.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package business;
+package com.example.grocery_shop3.model;
 
 public class Vegetable extends Item {
     private double weight;
