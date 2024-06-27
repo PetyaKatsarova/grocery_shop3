@@ -1,10 +1,10 @@
 package com.example.grocery_shop3.model;
 
 public class Beer extends Item {
-    public enum BeerType { BELGIUM, DUTCH, GERMAN }
-    public enum PackagingType { PACK, BOTTLE }
-    private final BeerType      beerType;
-    private final PackagingType packagingType;
+    public enum     BeerType { BELGIUM, DUTCH, GERMAN }
+    public enum     PackagingType { PACK, BOTTLE }
+    private final   BeerType      beerType;
+    private final   PackagingType packagingType;
 
     /**
      * discounts are per pack of 6 bottles or 6 individual bottles

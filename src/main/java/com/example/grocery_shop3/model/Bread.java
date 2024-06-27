@@ -9,6 +9,12 @@ public class Bread extends Item {
         this.age = age;
         this.quantity = 1;
     }
+
+    @Override
+    public double getTotalPriceAfter() {
+        return 0;
+    }
+
     public Bread(String name, double price, int age, int quantity) {
         super(name, price);
         this.age = age;
