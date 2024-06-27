@@ -28,6 +28,17 @@ public class Order {
      *  List the current discount rules
      * ○ List the current prices per item
      */
+
+    public String getItemsPrices() {
+        Bread bread = new Bread();
+        Beer beer = new Beer();
+        Vegetable vegetable = new Vegetable();
+        return String.format("Bread €%.2f, Veg €%.2f per %.0f%s, Beer €%.2f per %s", bread.getPrice(), vegetable.getPrice(), vegetable.getWeight(),
+                vegetable.getUnit(), beer.getPrice(), beer.getUnit());
+
+
+    }
+
     public double calculateTotal() {
         return items.stream().mapToDouble(Item::getTotalAfterDiscount).sum();
     }
