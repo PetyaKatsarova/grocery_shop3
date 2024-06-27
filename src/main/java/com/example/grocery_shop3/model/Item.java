@@ -29,6 +29,8 @@ public abstract class Item {
         return price;
     }
 
+    public abstract double getTotalPrice();
+
     public abstract double getTotalPriceAfter();
     public abstract double getDiscount();
 }

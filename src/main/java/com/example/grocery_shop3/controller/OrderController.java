@@ -7,6 +7,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/order")
 public class OrderController {
 
+    @GetMapping("/")
+    @ResponseBody
+    public String printDefaultReceipt() {
+        Order order = new Order();
+        return order.printDefaultReceipt();
+    }
+
     @GetMapping("/test")
     @ResponseBody
     public String GameTester() {

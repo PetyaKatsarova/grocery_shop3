@@ -24,5 +24,15 @@ public class Vegetable extends Item {
         }
         return price * weight * (1 - discount);
     }
+
+    @Override
+    public double getTotalPriceAfter() {
+        return 0;
+    }
+
+    @Override
+    public double getDiscount() {
+        return 0;
+    }
 }
 
