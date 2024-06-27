@@ -47,4 +47,12 @@ public class Order {
         receipt.append(String.format("\nTotal: €%.2f", total));
         return receipt.toString();
     }
+
+    public String printDefaultReceipt() {
+        return "Bread €1,00, Veg €1,00 per 100g, Beer €0,50 per bottle\n" +
+                "1. 3 x Bread (three days old) €2,00\n" +
+                "2. 200g Vegetables €1,86\n" +
+                "3. 6 x Dutch Beers €2,00\n" +
+                "   Total: €5,86";
+    }
 }

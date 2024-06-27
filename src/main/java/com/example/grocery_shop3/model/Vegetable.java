@@ -55,5 +55,15 @@ public class Vegetable extends Item {
             return BIG_DISCOUNT * price * weight;
         }
     }
+
+    @Override
+    public double getTotalPriceAfter() {
+        return 0;
+    }
+
+    @Override
+    public double getDiscount() {
+        return 0;
+    }
 }
 
