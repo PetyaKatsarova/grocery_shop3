@@ -7,14 +7,22 @@ public class Vegetable extends Item {
     private final double    MEDIUM_DISCOUNT = 0.07;
     private final double    BIG_DISCOUNT = 0.1;
 
+    /**
+     * by default vegetable price is per 100g
+     * */
+    public Vegetable() {
+        super("vegetable", 1.00, "g");
+        this.weight = 100.00;
+    }
+
     public Vegetable(String name, double price, double weight) {
-        super(name, price);
+        super(name, price, "g");
         this.weight = weight;
         this.unit = "gram";
     }
 
     public Vegetable(String name, double price, double weight, int quantity, String unit) {
-        super(name, price, quantity);
+        super(name, price, unit, quantity);
         this.weight = weight;
         this.unit = unit;
     }
@@ -54,16 +62,6 @@ public class Vegetable extends Item {
         } else {
             return BIG_DISCOUNT * price * weight;
         }
-    }
-
-    @Override
-    public double getTotalPriceAfter() {
-        return 0;
-    }
-
-    @Override
-    public double getDiscount() {
-        return 0;
     }
 }
 

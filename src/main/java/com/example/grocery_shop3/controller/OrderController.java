@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/order")
 public class OrderController {
 
-    @GetMapping("/")
+    @GetMapping("/get_prices")
     @ResponseBody
-    public String printDefaultReceipt() {
+    public String getItemsPrices() {
+
         Order order = new Order();
-        return order.printDefaultReceipt();
+        return order.getItemsPrices();
     }
 
     @GetMapping("/test")
@@ -23,8 +24,7 @@ public class OrderController {
     @GetMapping("/discount_rules")
     @ResponseBody
     public String GetDiscountRules() {
-        return "BREAD: " +
-                "● Breads always have discounts like “buy 1 take 2”, or “buy 1\n" +
+        return  "● Breads always have discounts like “buy 1 take 2”, or “buy 1\n" +
                 "take 3”. If the bread is one day old or newer, it has no\n" +
                 "discounts. If it's 3 days old it has the “buy 1 take 2” discount,\n" +
                 "and if it's 6 days old, it's “pay 1 take 3”. Breads older than 6\n" +

@@ -3,23 +3,32 @@ package com.example.grocery_shop3.model;
 public class Bread extends Item {
     private int age;
     private int quantity;
+    private final int    SMALL_DISCOUNT = 3; // days old
+    private final int    BIG_DISCOUNT = 6;
+
+    public Bread() {
+        super("bread", 1.00, "loaf", 1);
+        this.age = 1;
+    }
+
 
     public Bread(String name, double price, int age) {
-        super(name, price);
+        super(name, price, "loaf");
         this.age = age;
         this.quantity = 1;
     }
 
-    @Override
-    public double getTotalPriceAfter() {
-        return 0;
-    }
-
     public Bread(String name, double price, int age, int quantity) {
-        super(name, price);
+        super(name, price, "loaf");
         this.age = age;
         this.quantity = quantity;
     }
+    public Bread(String name, double price, int age, int quantity, String unit) {
+        super(name, price, unit);
+        this.age = age;
+        this.quantity = quantity;
+    }
+
 
     public int getAge() {
         return age;
@@ -54,7 +63,7 @@ public class Bread extends Item {
     public double getDiscount() {
         if (age <= 1) {
             return price;
-        } else if (age == 3) {
+        } else if (age == SMALL_DISCOUNT) {
             if (quantity % 2 == 0) {
                 return price * (quantity / 2.0);
             } else {
@@ -62,11 +71,11 @@ public class Bread extends Item {
                 return (price * (quantity - notDiscountedQuantity)) / 2.0;
             }
         } else if (age == 6) {
-            if (quantity % 3 == 0) {
-                return price * (quantity / 3.0);
+            if (quantity % SMALL_DISCOUNT == 0) {
+                return price * ((double) quantity / SMALL_DISCOUNT);
             } else {
-                int notDiscountedQuantity = quantity % 3;
-                return (price * (quantity - notDiscountedQuantity)) / 3.0;
+                int notDiscountedQuantity = quantity % SMALL_DISCOUNT;
+                return (price * (quantity - notDiscountedQuantity)) / SMALL_DISCOUNT;
             }
         } else {
             throw new IllegalArgumentException("Bread older than 6 days cannot be added.");
