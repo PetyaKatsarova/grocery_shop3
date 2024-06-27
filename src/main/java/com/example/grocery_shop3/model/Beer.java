@@ -1,6 +1,16 @@
 package com.example.grocery_shop3.model;
 
 public class Beer extends Item {
+    @Override
+    public double getTotalPriceAfter() {
+        return 0;
+    }
+
+    @Override
+    public double getDiscount() {
+        return 0;
+    }
+
     public enum BeerType {
         BELGIUM, DUTCH, GERMAN
     }
@@ -10,6 +20,7 @@ public class Beer extends Item {
     }
 
     private BeerType type;
+    private TypeQuantity typeQuantity;
 
     public Beer(String name, double price, BeerType type, TypeQuantity typeQuantity) {
         super(name, price);
