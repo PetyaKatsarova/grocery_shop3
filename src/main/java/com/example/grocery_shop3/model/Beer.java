@@ -1,60 +1,79 @@
 package com.example.grocery_shop3.model;
 
 public class Beer extends Item {
-    public enum BeerType {
-        BELGIUM, DUTCH, GERMAN
-    }
+    public enum BeerType { BELGIUM, DUTCH, GERMAN }
+    public enum PackagingType { PACK, BOTTLE }
+    private final BeerType      beerType;
+    private final PackagingType packagingType;
 
-    public enum TypeQuantity {
-        PACK, BOTTLE
-    }
+    /**
+     * discounts are per pack of 6 bottles or 6 individual bottles
+     * */
+     private final double   BelgiumDiscount = 3.00;
+     private final double   DutchDiscount   = 2.00;
+     private final double   GermanDiscount  = 4.00;
+     private final int      BottlesPerPack = 6;
 
-    private BeerType type;
-
-    public Beer(String name, double price, BeerType type, TypeQuantity typeQuantity) {
+    public Beer(String name, double price, BeerType type, PackagingType packagingType) {
         super(name, price);
-        this.type = type;
-        this.typeQuantity = typeQuantity;
+        this.beerType = type;
+        this.packagingType = packagingType;
     }
 
-    public Beer(String name, double price, BeerType type, int quantity) {
+    public Beer(String name, double price, BeerType type, PackagingType packagingType, int quantity) {
         super(name, price, quantity);
-        this.type = type;
+        this.beerType = type;
+        this.packagingType = packagingType;
     }
 
     public BeerType getType() {
-        return type;
+        return beerType;
+    }
+
+    public PackagingType getPackagingType() {
+        return packagingType;
+    }
+
+    @Override
+    public double getTotal() {
+        return price * quantity;
+    }
+
+    @Override
+    public double getTotalAfterDiscount() {
+        return  getTotal() - getDiscount();
     }
 
 
     /**
      *  Beers have only discounts if bought in packs containing 6
      * beers. The discount rules are fixed per pack:
-     * ● € 3,00 for each Belgium beer pack
-     * ● € 2,00 for each Dutch beer pack
-     * ● € 4,00 for each German beer pack
      * Single bottles/cans of beer can always be added to the order,
      * but in that case there is no discount. Buying 6 separate
      * bottles of the same beer is the same as buying one pack of
      * the same beer
      * */
-    @Override
-    public double getTotalPrice() {
-        double discount = 0.0;
-        if (quantity >= 6) {
-            switch (type) {
-                case BELGIUM:
-                    discount = 3.0;
-                    break;
-                case DUTCH:
-                    discount = 2.0;
-                    break;
-                case GERMAN:
-                    discount = 4.0;
-                    break;
+
+    public double getDiscount(){
+        int packs = this.quantity;
+        if (this.packagingType == PackagingType.BOTTLE) {
+            if (quantity > 5) {
+                packs = quantity / BottlesPerPack;
+            } else {
+                return 0.0;
             }
-            return price * quantity - discount;
         }
-        return price * quantity;
+        switch (this.beerType) {
+            case BELGIUM -> {
+                return (price * packs) - (BelgiumDiscount * packs);
+            }
+            case DUTCH -> {
+                return (price * packs) - (DutchDiscount * packs);
+            }
+            case GERMAN -> {
+                return (price * packs) - (GermanDiscount * packs);
+            }
+        }
+        return  0.0;
     }
 }

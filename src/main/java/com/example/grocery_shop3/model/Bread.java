@@ -2,14 +2,17 @@ package com.example.grocery_shop3.model;
 
 public class Bread extends Item {
     private int age;
+    private int quantity;
 
     public Bread(String name, double price, int age) {
         super(name, price);
         this.age = age;
+        this.quantity = 1;
     }
     public Bread(String name, double price, int age, int quantity) {
-        super(name, price, quantity);
+        super(name, price);
         this.age = age;
+        this.quantity = quantity;
     }
 
     public int getAge() {
@@ -24,8 +27,14 @@ public class Bread extends Item {
 //    days cannot be added to orders.
 
     @Override
-    public double getTotalPrice() {
-        return (price * quantity) - getDiscount();
+    public double getTotal() {
+        return price * quantity;
+    }
+
+//    TODO: do we need this??? BELLOW
+    @Override
+    public double getTotalAfterDiscount() {
+        return getTotal() - getDiscount();
     }
 
     /**
