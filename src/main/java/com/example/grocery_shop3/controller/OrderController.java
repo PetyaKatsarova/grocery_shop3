@@ -47,9 +47,9 @@ public class OrderController {
                 "the same beer.";
     }
 
-    @PostMapping("/calculate")
+    @PostMapping("/generate_receipt")
     @ResponseBody
-    public String PrintReceipt(@RequestBody Order order) {
+    public String generateReceipt(@RequestBody Order order) {
         return order.generateReceipt();
     }
 
