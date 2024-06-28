@@ -50,7 +50,7 @@ public class OrderController {
     @PostMapping("/generate_receipt")
     @ResponseBody
     public String generateReceipt(@RequestBody Order order) {
-        return order.generateReceipt();
+        return order.getItemsPrices() + order.generateReceipt();
     }
 
 }

@@ -13,6 +13,9 @@ public class Order {
     }
 
     public void addItem(Item item) {
+        if (!(item instanceof Bread) && !(item instanceof Beer) && !(item instanceof Vegetable)) {
+            throw new IllegalArgumentException("We have only bread, beer or vegetable.");
+        }
         items.add(item);
     }
 
@@ -33,7 +36,7 @@ public class Order {
         Bread bread = new Bread();
         Beer beer = new Beer();
         Vegetable vegetable = new Vegetable();
-        return String.format("Bread €%.2f, Veg €%.2f per %.0f%s, Beer €%.2f per %s", bread.getPrice(), vegetable.getPrice(), vegetable.getWeight(),
+        return String.format("Bread €%.2f, Veg €%.2f per %.0f%s, Beer €%.2f per %s\n", bread.getPrice(), vegetable.getPrice(), vegetable.getWeight(),
                 vegetable.getUnit(), beer.getPrice(), beer.getUnit());
     }
 
