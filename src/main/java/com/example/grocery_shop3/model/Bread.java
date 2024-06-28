@@ -1,10 +1,12 @@
 package com.example.grocery_shop3.model;
 
 public class Bread extends Item {
-    private int age;
-    private int quantity;
-    private final int    SMALL_DISCOUNT = 3; // days old
-    private final int    BIG_DISCOUNT = 6;
+    private int             age;
+    private int             quantity;
+    private double          small_num_free = 1; // buy 1 get 2
+    private double          big_num_free = 2; // buy 1 get 3
+    private int             days_small_discount = 3; // TODO: add all those to be set from constructor
+    private int             days_big_discount = 6;
 
     public Bread() {
         super("bread", 1.00, "loaf", 1);
@@ -59,27 +61,16 @@ public class Bread extends Item {
      * 6 days old: “pay 1 take 3”.
      * older than 6 days cannot be added to orders.
      * */
+//    TODO: QUESTIONS: WHAT IF BREAD IS OLD 2 DAYS? ANY DISCOUNT? OR 4 AND 5 DAYS OLD?
+    // todo: logic is wrong: fix it
     @Override
     public double getDiscount() {
-        if (age <= 1) {
-            return price;
-        } else if (age == SMALL_DISCOUNT) {
-            if (quantity % 2 == 0) {
-                return price * (quantity / 2.0);
-            } else {
-                int notDiscountedQuantity = quantity % 2;
-                return (price * (quantity - notDiscountedQuantity)) / 2.0;
-            }
+        if (age >= 3 && age < 6) {
+            return price * (Math.floor((double) quantity / 2)); // if 5 breads: 5 / 2 = 2, leave the decimal; getting 1 free
         } else if (age == 6) {
-            if (quantity % SMALL_DISCOUNT == 0) {
-                return price * ((double) quantity / SMALL_DISCOUNT);
-            } else {
-                int notDiscountedQuantity = quantity % SMALL_DISCOUNT;
-                return (price * (quantity - notDiscountedQuantity)) / SMALL_DISCOUNT;
-            }
-        } else {
-            throw new IllegalArgumentException("Bread older than 6 days cannot be added.");
+            return price * (Math.floor((double) quantity / 3)) * 2; // if 5 breads: 5 / 2 = 2, leave the decimal; getting 2 free
         }
+        return 0.0;
     }
 }
 

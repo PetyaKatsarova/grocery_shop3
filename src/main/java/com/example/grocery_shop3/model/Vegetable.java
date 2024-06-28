@@ -2,7 +2,6 @@ package com.example.grocery_shop3.model;
 
 public class Vegetable extends Item {
     private double          weight;
-    private String          unit;
     private final double    SMALL_DISCOUNT = 0.05;
     private final double    MEDIUM_DISCOUNT = 0.07;
     private final double    BIG_DISCOUNT = 0.1;

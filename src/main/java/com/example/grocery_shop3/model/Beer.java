@@ -73,20 +73,20 @@ public class Beer extends Item {
         int packs = this.quantity;
         if (this.unit.equals("bottle")) {
             if (quantity >= BOTTLES_PER_PACK) {
-                packs = quantity / BOTTLES_PER_PACK;
+                packs = quantity / BOTTLES_PER_PACK; // returns int: how many packs can be formed
             } else {
                 return 0.0;
             }
         }
         switch (this.beerType) {
             case BELGIUM -> {
-                return (price * packs) - (BELGIUM_DISCOUNT * packs);
+                return BELGIUM_DISCOUNT * packs;
             }
             case DUTCH -> {
-                return (price * packs) - (DUTCH_DISCOUNT * packs);
+                return DUTCH_DISCOUNT * packs;
             }
             case GERMAN -> {
-                return (price * packs) - (GERMAN_DISCOUNT * packs);
+                return GERMAN_DISCOUNT * packs;
             }
         }
         return  0.0;
