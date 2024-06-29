@@ -1,24 +1,25 @@
 package com.example.grocery_shop3.model;
 
 public class Beer extends Item {
-    public enum             BeerType { BELGIUM, DUTCH, GERMAN }
+    public enum BeerType {BELGIUM, DUTCH, GERMAN}
+
     /**
      * unit is currently bottle or pack of 6 bottles
-     * */
-    private final BeerType  beerType;
+     */
+    private final BeerType beerType;
     /**
      * discounts are per pack of 6 bottles or 6 individual bottles
-     * */
-     private final double   BELGIUM_DISCOUNT = 3.00;
-     private final double   DUTCH_DISCOUNT   = 2.00;
-     private final double   GERMAN_DISCOUNT  = 4.00;
-     private final int      BOTTLES_PER_PACK = 6;
+     */
+    private final double BELGIUM_DISCOUNT = 3.00;
+    private final double DUTCH_DISCOUNT = 2.00;
+    private final double GERMAN_DISCOUNT = 4.00;
+    private final int BOTTLES_PER_PACK = 6;
 
-     public  Beer() {
-         super("beer", 0.5, "bottle", 1);
-         this.beerType = BeerType.DUTCH;
-         this.unit = "bottle";
-     }
+    public Beer() {
+        super("beer", 0.5, "bottle", 1);
+        this.beerType = BeerType.DUTCH;
+        this.unit = "bottle";
+    }
 
     public Beer(String name, double price, BeerType type, String unit) {
         super(name, price, "bottle", 1);
@@ -36,7 +37,7 @@ public class Beer extends Item {
         if (!unit.equals("pack") && !unit.equals("bottle")) {
             throw new IllegalArgumentException("Beer unit can be only a pack or a bottle.");
         }
-        return  unit;
+        return unit;
     }
 
     public BeerType getType() {
@@ -50,19 +51,17 @@ public class Beer extends Item {
 
     @Override
     public double getTotalAfterDiscount() {
-        return  getTotal() - getDiscount();
+        return getTotal() - getDiscount();
     }
 
     @Override
-    public double getDiscount(){
-        int packs = this.quantity;
+    public double getDiscount() {
+        int packs = 0;
         if (this.unit.equals("bottle")) {
-            if (quantity >= BOTTLES_PER_PACK) {
-                packs = (int) Math.floor((double) quantity / BOTTLES_PER_PACK);
-            } else {
-                return 0.0;
-            }
-        }
+            if (this.quantity >= BOTTLES_PER_PACK) packs = (int) Math.floor((double) quantity / BOTTLES_PER_PACK);
+            else  return 0.0;
+        } else if (this.unit.equals("pack"))  packs = this.quantity;
+
         switch (this.beerType) {
             case BELGIUM -> {
                 return BELGIUM_DISCOUNT * packs;
@@ -74,6 +73,6 @@ public class Beer extends Item {
                 return GERMAN_DISCOUNT * packs;
             }
         }
-        return  0.0;
+        return 0.0;
     }
 }
