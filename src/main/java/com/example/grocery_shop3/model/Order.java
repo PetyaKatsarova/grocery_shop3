@@ -1,5 +1,3 @@
-// File: src/main/java/com/grocerystore/model/Order.java
-
 package com.example.grocery_shop3.model;
 
 import java.util.ArrayList;
@@ -7,6 +5,14 @@ import java.util.List;
 
 public class Order {
     private List<Item> items;
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 
     public Order() {
         this.items = new ArrayList<>();
@@ -36,13 +42,23 @@ public class Order {
         Bread bread = new Bread();
         Beer beer = new Beer();
         Vegetable vegetable = new Vegetable();
-        return String.format("Bread €%.2f, Veg €%.2f per %.0f%s, Beer €%.2f per %s\n", bread.getPrice(), vegetable.getPrice(), vegetable.getWeight(),
+        return String.format("Bread €%.2f, Veg €%.2f per %.0f%s, Beer €%.2f per %s\n", bread.getPrice(), vegetable.getPrice(), vegetable.getWeight_for_price(),
                 vegetable.getUnit(), beer.getPrice(), beer.getUnit());
     }
 
-    public double calculateTotal() {
-        return items.stream().mapToDouble(Item::getTotalAfterDiscount).sum();
-    }
+//    public String generateReceipt() {
+//        StringBuilder receipt = new StringBuilder();
+//        double total = 0.0;
+//        int itemCount = 1;
+//        for (Item item : items) {
+//            receipt.append(String.format("%d. %d x %s €%.2f\n",
+//                    itemCount, item.getQuantity(), item.getName(), item.getTotalAfterDiscount())); // TODO: discount logic is wrong!! ??  * item.getQuantity()
+//            itemCount++;
+//            total += item.getTotalAfterDiscount();
+//        }
+//        receipt.append(String.format("   Total: €%.2f", total));
+//        return receipt.toString();
+//    }
 
     public String generateReceipt() {
         StringBuilder receipt = new StringBuilder();
@@ -50,12 +66,14 @@ public class Order {
         int itemCount = 1;
         for (Item item : items) {
             receipt.append(String.format("%d. %d x %s €%.2f\n",
-                    itemCount, item.getQuantity(), item.getName(), item.getTotalAfterDiscount())); // TODO: discount logic is wrong!! ??  * item.getQuantity()
+                    itemCount, item.getQuantity(), item.getName(), item.getTotal()));
+            receipt.append(String.format("   Discount: €%.2f\n", item.getDiscount()));
             itemCount++;
             total += item.getTotalAfterDiscount();
         }
-        receipt.append(String.format("   Total: €%.2f", total));
+        receipt.append(String.format("   Total after discount: €%.2f", total));
         return receipt.toString();
     }
+
 
 }
