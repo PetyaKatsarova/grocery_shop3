@@ -1,5 +1,18 @@
 package com.example.grocery_shop3.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "name"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Beer.class, name = "beer"),
+        @JsonSubTypes.Type(value = Bread.class, name = "bread"),
+        @JsonSubTypes.Type(value = Vegetable.class, name = "vegetable")
+})
 public abstract class Item {
     protected String    name;
     protected double    price;
@@ -34,18 +47,6 @@ public abstract class Item {
 
     public String getUnit() {
         return unit;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public abstract double getTotal();

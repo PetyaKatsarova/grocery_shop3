@@ -1,38 +1,41 @@
 package com.example.grocery_shop3.model;
 
 public class Vegetable extends Item {
-    private double          weight;
+
+    /**
+     * example: price: 1 euro per 100g
+     * */
+    private double          weight_for_price;
+    /**
+     * discount is in %: example: 5% = 0.05
+     * */
     private final double    SMALL_DISCOUNT = 0.05;
     private final double    MEDIUM_DISCOUNT = 0.07;
     private final double    BIG_DISCOUNT = 0.1;
 
     /**
-     * by default vegetable price is per 100g
+     * by default vegetable price is per 100g;
+     * quantity is the weight
      * */
     public Vegetable() {
-        super("vegetable", 1.00, "g");
-        this.weight = 100.00;
+        super("vegetable", 1.00, "g", 100);
+        this.weight_for_price = 100.00;
     }
 
-    public Vegetable(String name, double price, double weight) {
-        super(name, price, "g");
-        this.weight = weight;
-        this.unit = "gram";
+    public Vegetable(String name, double price, double weight, double weight_for_price) {
+        super(name, price, "g", 100);
+        this.weight_for_price = weight_for_price;
     }
 
-    public Vegetable(String name, double price, double weight, int quantity, String unit) {
-        super(name, price, unit, quantity);
-        this.weight = weight;
+    public Vegetable(String name, double price, int weight, String unit, double weight_for_price) {
+        super(name, price, unit, weight);
         this.unit = unit;
-    }
-
-    public double getWeight() {
-        return weight;
+        this.weight_for_price = weight_for_price;
     }
 
     @Override
     public double getTotal() {
-        return price * weight;
+        return price * (quantity / weight_for_price);
     }
 
     @Override
@@ -40,27 +43,21 @@ public class Vegetable extends Item {
         return getTotal() - getDiscount();
     }
 
-    /**
-     * ● Vegetables have a % based discount depending on the
-     * weight. If you buy between 0g and 100g (always in the same
-     * order), you have 5% of discount (applied to all vegetable
-     * items), 7% between 100g and 500g, and 10% of fixed discount
-     * if all vegetables weight more than 500g.
-     * */
-//    I assume: from 1 to 100 inclusive, from 101 to 500 g inclusive, from 501 g
-//    I assume: price is per gram weight
     @Override
     public double getDiscount() {
-        double discount = 0.0;
-        if (weight == 0)
+        double common_calculation = price * (quantity / weight_for_price);
+        if (quantity == 0)
             return 0.0;
-        if (weight <= 100) {
-            return SMALL_DISCOUNT * price * weight;
-        } else if (weight <= 500) {
-            return MEDIUM_DISCOUNT * price * weight;
+        if (quantity <= 100) {
+            return SMALL_DISCOUNT * common_calculation;
+        } else if (quantity <= 500) {
+            return MEDIUM_DISCOUNT * common_calculation;
         } else {
-            return BIG_DISCOUNT * price * weight;
+            return BIG_DISCOUNT * common_calculation;
         }
     }
-}
 
+    public double getWeight_for_price() {
+        return weight_for_price;
+    }
+}

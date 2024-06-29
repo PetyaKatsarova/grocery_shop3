@@ -1,12 +1,11 @@
 package com.example.grocery_shop3.model;
 
 public class Beer extends Item {
-    public enum                 BeerType { BELGIUM, DUTCH, GERMAN }
+    public enum             BeerType { BELGIUM, DUTCH, GERMAN }
     /**
      * unit is currently bottle or pack of 6 bottles
      * */
-    private final   BeerType    beerType;
-
+    private final BeerType  beerType;
     /**
      * discounts are per pack of 6 bottles or 6 individual bottles
      * */
@@ -44,10 +43,6 @@ public class Beer extends Item {
         return beerType;
     }
 
-    public String getUnit() {
-        return unit;
-    }
-
     @Override
     public double getTotal() {
         return price * quantity;
@@ -58,22 +53,12 @@ public class Beer extends Item {
         return  getTotal() - getDiscount();
     }
 
-
-    /**
-     *  Beers have only discounts if bought in packs containing 6
-     * beers. The discount rules are fixed per pack:
-     * Single bottles/cans of beer can always be added to the order,
-     * but in that case there is no discount. Buying 6 separate
-     * bottles of the same beer is the same as buying one pack of
-     * the same beer
-     * */
-
     @Override
     public double getDiscount(){
         int packs = this.quantity;
         if (this.unit.equals("bottle")) {
             if (quantity >= BOTTLES_PER_PACK) {
-                packs = quantity / BOTTLES_PER_PACK; // returns int: how many packs can be formed
+                packs = (int) Math.floor((double) quantity / BOTTLES_PER_PACK);
             } else {
                 return 0.0;
             }
