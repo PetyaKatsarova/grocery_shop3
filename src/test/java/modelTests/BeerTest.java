@@ -94,15 +94,15 @@ public class BeerTest {
 
     @Test
     public void testGetTotal() {
-        Beer beer = new Beer("Beer", 1.0, Beer.BeerType.GERMAN, 6, "pack");
-        assertEquals(6.0, beer.getTotal());
+        Beer beer = new Beer("Beer", 3.0, Beer.BeerType.GERMAN, 6, "pack");
+        assertEquals(3.0*6, beer.getTotal());
     }
 
     @Test
     public void testGetTotalAfterDiscount_Bottle_Even() {
         Beer beer = new Beer("Beer", 1.0, Beer.BeerType.DUTCH, 8, "bottle");
         assertEquals(8.0, beer.getTotal());
-        assertEquals(6.0, beer.getTotalAfterDiscount()); // 8.0 - 2.0 discount
+        assertEquals((8*1.0-2.0), beer.getTotalAfterDiscount()); // 8.0 - 2.0 discount
     }
 
     @Test

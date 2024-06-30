@@ -5,10 +5,10 @@ public class Bread extends Item {
     /**
     * If bread is at least 3 days old get discount: buy 1 get 2; if 6 days old: buy 1 get 3
     * */
-    private static final int DAYS_SMALL_DISCOUNT = 3;
-    private static final int DAYS_BIG_DISCOUNT = 6;
-    private static final int SMALL_NUM_DEAL = 2;
-    private static final int BIG_NUM_DEAL = 3;
+    private static int DAYS_SMALL_DISCOUNT = 3;
+    private static int DAYS_BIG_DISCOUNT = 6;
+    private static int SMALL_NUM_DEAL = 2;
+    private static int BIG_NUM_DEAL = 3;
 
     /**
      * if age is bigger than 6 days dont sell
