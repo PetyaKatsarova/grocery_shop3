@@ -1,7 +1,6 @@
 package com.example.grocery_shop3.model;
 
 public class Vegetable extends Item {
-
     /**
      * example: price: 1 euro per 100g
      * */

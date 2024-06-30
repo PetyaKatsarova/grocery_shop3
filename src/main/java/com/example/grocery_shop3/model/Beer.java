@@ -69,7 +69,7 @@ public class Beer extends Item {
 
     @Override
     public void setUnit(@NotNull String unit) {
-        if (unit.isEmpty() || (!unit.equals("pack") && !unit.equals("bottle"))) {
+        if (!unit.equals("pack") && !unit.equals("bottle")) {
             throw new IllegalArgumentException("Beer unit can be only a pack or a bottle and not an empty string.");
         }
         this.unit = unit;

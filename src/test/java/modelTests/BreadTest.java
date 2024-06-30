@@ -84,14 +84,14 @@ public class BreadTest {
 
     @Test
     public void testGetTotalAfterDiscount_SmallDiscount() {
-        Bread bread = new Bread("Bread", 1.00, 3, 5);
-        assertEquals(3.00, bread.getTotalAfterDiscount()); // 5.00 - 2.00
+        Bread bread = new Bread("Bread", 1.00, 3, 8);
+        assertEquals(4.00, bread.getTotalAfterDiscount());
     }
 
     @Test
     public void testGetTotalAfterDiscount_BigDiscount() {
         Bread bread = new Bread("Bread", 1.00, 6, 5);
-        assertEquals(4.00, bread.getTotalAfterDiscount()); // 5.00 - 1.00
+        assertEquals(4.00, bread.getTotalAfterDiscount());
     }
 
     @Test

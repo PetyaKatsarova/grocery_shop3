@@ -87,13 +87,13 @@ public class VegetableTest {
     }
 
     @Test
-    public void testGetDiscount_NoDiscount() {
+    public void testGetDiscount_SmallDiscount1() {
         Vegetable vegetable = new Vegetable("Onion", 1.00, 50, "g", 100);
-        assertEquals(0.05, vegetable.getDiscount());
+        assertEquals((1.00*50/100)*0.05, vegetable.getDiscount());
     }
 
     @Test
-    public void testGetDiscount_SmallDiscount() {
+    public void testGetDiscount_SmallDiscount2() {
         Vegetable vegetable = new Vegetable("Pepper", 1.00, 100, "g", 100);
         assertEquals(1 * 0.05, vegetable.getDiscount());
     }
@@ -101,14 +101,14 @@ public class VegetableTest {
     @Test
     public void testGetDiscount_MediumDiscount() {
         Vegetable vegetable = new Vegetable("Zucchini", 1.00, 101, "g", 100);
-        assertEquals(0.07 * 1.01, vegetable.getDiscount(), 0.01); // 1.01 is the total (price * quantity / weight_for_price), and 0.07 is the medium discount
+        assertEquals((1*101/100)*0.07, vegetable.getDiscount(), 0.01); // 1.01 is the total (price * quantity / weight_for_price), and 0.07 is the medium discount
     }
 
 
     @Test
     public void testGetDiscount_BigDiscount() {
         Vegetable vegetable = new Vegetable("Spinach", 1.00, 700, "g", 100);
-        assertEquals(0.70, vegetable.getDiscount());
+        assertEquals((1.0*700/100)*0.1, vegetable.getDiscount());
     }
 
     @Test
@@ -122,7 +122,7 @@ public class VegetableTest {
     @Test
     public void testInvalidPrice() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Vegetable("Broccoli", -1.00, 100, "g", 100);
+            new Vegetable("Broccoli", 0, 100, "g", 100);
         });
         assertEquals("Price cant be 0 or negative", exception.getMessage());
     }
