@@ -10,6 +10,11 @@ public class Bread extends Item {
     private static final int SMALL_NUM_DEAL = 2;
     private static final int BIG_NUM_DEAL = 3;
 
+    /**
+     * if age is bigger than 6 days dont sell
+     * */
+    private static final int AGE_DONT_SELL = 7;
+
     public Bread() {
         super("bread", 1.00, "loaf", 1);
         this.age = 1;
@@ -17,18 +22,18 @@ public class Bread extends Item {
 
     public Bread(String name, double price, int age) {
         super(name, price, "loaf");
-        this.age = age;
+        setAge(age);
         this.quantity = 1;
     }
 
     public Bread(String name, double price, int age, int quantity) {
         super(name, price, "loaf");
-        this.age = age;
+        setAge(age);
         this.quantity = quantity;
     }
     public Bread(String name, double price, int age, int quantity, String unit) {
         super(name, price, unit);
-        this.age = age;
+        setAge(age);
         this.quantity = quantity;
     }
 
@@ -54,6 +59,13 @@ public class Bread extends Item {
 
     public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        if (age >= AGE_DONT_SELL) {
+            throw new IllegalArgumentException("Bread is too old to sell, over/equal "+AGE_DONT_SELL+" days old");
+        }
+        this.age = age;
     }
 }
 

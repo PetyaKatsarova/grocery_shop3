@@ -9,9 +9,9 @@ public class Vegetable extends Item {
     /**
      * discount is in %: example: 5% = 0.05
      * */
-    private final double    SMALL_DISCOUNT = 0.05;
-    private final double    MEDIUM_DISCOUNT = 0.07;
-    private final double    BIG_DISCOUNT = 0.1;
+    private static double    SMALL_DISCOUNT = 0.05;
+    private static double    MEDIUM_DISCOUNT = 0.07;
+    private static double    BIG_DISCOUNT = 0.1;
 
     /**
      * by default vegetable price is per 100g;
@@ -24,13 +24,13 @@ public class Vegetable extends Item {
 
     public Vegetable(String name, double price, double weight, double weight_for_price) {
         super(name, price, "g", 100);
-        this.weight_for_price = weight_for_price;
+        setWeight_for_price(weight_for_price);
     }
 
     public Vegetable(String name, double price, int weight, String unit, double weight_for_price) {
         super(name, price, unit, weight);
         this.unit = unit;
-        this.weight_for_price = weight_for_price;
+        setWeight_for_price(weight_for_price);
     }
 
     @Override
@@ -59,5 +59,10 @@ public class Vegetable extends Item {
 
     public double getWeight_for_price() {
         return weight_for_price;
+    }
+
+    public void setWeight_for_price(double weight_for_price) {
+        if (weight_for_price <= 0) throw new IllegalArgumentException("the weight for price should be higher than 0");
+        this.weight_for_price = weight_for_price;
     }
 }

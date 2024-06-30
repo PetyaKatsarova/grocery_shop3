@@ -20,17 +20,41 @@ public abstract class Item {
     protected String    unit;
 
     public Item(String name, double price, String unit) {
-        this.name = name;
-        this.price = price;
-        this.unit = unit;
+        setName(name);
+        setPrice(price);
+        setUnit(unit);
         quantity = 1;
     }
 
     public Item(String name, double price, String unit, int quantity) {
+        setName(name);
+        setPrice(price);
+        setUnit(unit);
+        setQuantity(quantity);
+    }
+
+    public abstract double getTotal();
+    public abstract double getDiscount();
+    public abstract double getTotalAfterDiscount();
+
+    public void setName(String name) {
+        if (name.isEmpty()) throw new IllegalArgumentException("Name can't be empty string");
         this.name = name;
+    }
+
+    public void setPrice(double price) {
+        if (price <= 0.0) throw new IllegalArgumentException("Price cant be 0 or negative");
         this.price = price;
-        this.unit = unit;
+    }
+
+    public void setQuantity(int quantity) {
+        if (quantity <= 0) throw new IllegalArgumentException("Quantity cant be 0 or negative");
         this.quantity = quantity;
+    }
+
+    public void setUnit(String unit) {
+        if (unit.isEmpty()) throw new IllegalArgumentException("Unit can't be empty string");
+        this.unit = unit;
     }
 
     public String getName() {
@@ -48,8 +72,4 @@ public abstract class Item {
     public String getUnit() {
         return unit;
     }
-
-    public abstract double getTotal();
-    public abstract double getDiscount();
-    public abstract double getTotalAfterDiscount();
 }
