@@ -1,4 +1,4 @@
-package businessTests;
+package modelTests;
 
 //package com.example.grocery_shop3.model;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,61 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.example.grocery_shop3.model.Beer;
 
 public class BeerTest {
+    @Test
+    public void testNegativePrice() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Beer("Beer", -1.0, Beer.BeerType.DUTCH, 1, "bottle");
+        });
+        assertEquals("Price cant be 0 or negative", exception.getMessage());
+    }
+
+    @Test
+    public void testZeroPrice() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Beer("Beer", 0.0, Beer.BeerType.DUTCH, 1, "bottle");
+        });
+        assertEquals("Price cant be 0 or negative", exception.getMessage());
+    }
+
+    @Test
+    public void testNegativeQuantity() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Beer("Beer", 1.0, Beer.BeerType.DUTCH, -1, "bottle");
+        });
+        assertEquals("Quantity cant be 0 or negative", exception.getMessage());
+    }
+
+    @Test
+    public void testZeroQuantity() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Beer("Beer", 1.0, Beer.BeerType.DUTCH, 0, "bottle");
+        });
+        assertEquals("Quantity cant be 0 or negative", exception.getMessage());
+    }
+
+    @Test
+    public void testEmptyName() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Beer("", 1.0, Beer.BeerType.DUTCH, 1, "bottle");
+        });
+        assertEquals("Name can't be empty string", exception.getMessage());
+    }
+
+    @Test
+    public void testEmptyUnit() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Beer("Beer", 1.0, Beer.BeerType.DUTCH, 1, "");
+        });
+        assertEquals("Beer unit can be only a pack or a bottle and not an empty string.", exception.getMessage());
+    }
+
+    @Test
+    public void testInvalidUnit() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Beer("Beer", 1.0, Beer.BeerType.DUTCH, 1, "invalid");
+        });
+        assertEquals("Beer unit can be only a pack or a bottle and not an empty string.", exception.getMessage());
+    }
 
     @Test
     public void testDefaultConstructor() {
@@ -38,24 +93,23 @@ public class BeerTest {
     }
 
     @Test
-    public void testInvalidUnit() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Beer("Invalid Beer", 1.0, Beer.BeerType.GERMAN, 6, "invalid");
-        });
-        assertEquals("Beer unit can be only a pack or a bottle.", exception.getMessage());
-    }
-
-    @Test
     public void testGetTotal() {
         Beer beer = new Beer("Beer", 1.0, Beer.BeerType.GERMAN, 6, "pack");
         assertEquals(6.0, beer.getTotal());
     }
 
     @Test
-    public void testGetTotalAfterDiscount_Bottle() {
+    public void testGetTotalAfterDiscount_Bottle_Even() {
         Beer beer = new Beer("Beer", 1.0, Beer.BeerType.DUTCH, 8, "bottle");
         assertEquals(8.0, beer.getTotal());
         assertEquals(6.0, beer.getTotalAfterDiscount()); // 8.0 - 2.0 discount
+    }
+
+    @Test
+    public void testGetTotalAfterDiscount_Bottle_Odd() {
+        Beer beer = new Beer("Beer", 1.0, Beer.BeerType.DUTCH, 15, "bottle");
+        assertEquals(15.0, beer.getTotal());
+        assertEquals(11.0, beer.getTotalAfterDiscount()); // 15 - 2packs*2 = 11
     }
 
     @Test
