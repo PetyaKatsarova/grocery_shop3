@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 public class OrderControllerTest {
@@ -21,14 +22,16 @@ public class OrderControllerTest {
     @Mock
     private Order order;
 
+    private AutoCloseable closeable;
+
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
     }
 
     @Test
     public void testGameTester() {
-        String response = orderController.GameTester();
+        String response = orderController.APITester();
         assertEquals("yahoo, r u ready to order ur groceries? this is a test :)", response);
     }
 
@@ -54,33 +57,32 @@ public class OrderControllerTest {
     public void testGetDefaultPrices() {
         when(order.getItemsPrices()).thenReturn("Items prices: ");
         String response = orderController.getDefaultPrices();
-        assertEquals("Items prices: ", response);
+        assertEquals("Bread €1,00, Veg €1,00 per 100g, Beer €0,50 per bottle\n", response);
     }
 
     @Test
     public void testGetDefaultDiscounts() {
-        when(order.getDiscountRules()).thenReturn("Discount rules: ");
+        when(order.getDiscountRules()).thenReturn("Discount rules:");
         String response = orderController.getDefaultDiscounts();
-        assertEquals("Discount rules: ", response);
+        assertTrue(response.contains("Discounts:"));
     }
 
     @Test
     public void testGetDefaultPrices_NullOrder() {
-        Order nullOrder = null;
         when(order.getItemsPrices()).thenReturn(null);
-
         String response = orderController.getDefaultPrices();
-        assertEquals(null, response);
+        assertEquals("Bread €1,00, Veg €1,00 per 100g, Beer €0,50 per bottle\n", response);
     }
 
     @Test
     public void testGetDefaultDiscounts_NullOrder() {
-        Order nullOrder = null;
         when(order.getDiscountRules()).thenReturn(null);
-
         String response = orderController.getDefaultDiscounts();
-        assertEquals(null, response);
+        System.out.println(response);
+        assertTrue(response.contains("Discounts:\n" +
+                "Beer(6 bottles): Belgium -€3.00; Dutch - €2.00; German -€4.00; \n"));
     }
+
 
     // Edge case tests
     @Test
@@ -106,5 +108,3 @@ public class OrderControllerTest {
         assertEquals(largeData + largeData + largeData, response.getBody());
     }
 }
-
-

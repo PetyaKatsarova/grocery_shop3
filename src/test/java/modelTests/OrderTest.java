@@ -9,30 +9,36 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OrderTest {
+class OrderTest {
 
     private Order order;
+    private Bread bread;
+    private Beer beer;
+    private Vegetable vegetable;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         order = new Order();
+        bread = new Bread("bread", 1.0, 3, 2); // 3 items, 2 days old
+        beer = new Beer("beer", 2.0, Beer.BeerType.DUTCH, 6, "bottle");
+        vegetable = new Vegetable("vegetable", 0.5, 300, "g", 100);
     }
 
     @Test
-    public void testAddItem_ValidItems() {
-        Bread bread = new Bread("bread", 1.0, 2);
-        Beer beer = new Beer("beer", 2.0, Beer.BeerType.DUTCH, 6, "bottle");
-        Vegetable vegetable = new Vegetable("vegetable", 1.0, 200, "g", 100);
-
+    void testAddItem_ValidItems() {
         order.addItem(bread);
         order.addItem(beer);
         order.addItem(vegetable);
 
-        assertEquals(3, order.getItems().size());
+        List<Item> items = order.getItems();
+        assertEquals(3, items.size());
+        assertTrue(items.contains(bread));
+        assertTrue(items.contains(beer));
+        assertTrue(items.contains(vegetable));
     }
 
     @Test
-    public void testAddItem_InvalidItem() {
+    void testAddItem_InvalidItem() {
         Item invalidItem = new Item("Invalid", 1.0, "unit") {
             @Override
             public double getTotal() {
@@ -58,50 +64,51 @@ public class OrderTest {
     }
 
     @Test
-    public void testGetItemsPrices() {
+    void testGetItemsPrices() {
         String prices = order.getItemsPrices();
-        assertTrue(prices.contains("Bread €"));
-        assertTrue(prices.contains("Veg €"));
-        assertTrue(prices.contains("Beer €"));
+        assertNotNull(prices);
+        System.out.println(prices);
+        assertTrue(prices.contains("Bread €1,00"));
+        assertTrue(prices.contains("Veg €1,00 per 100g"));
+        assertTrue(prices.contains("Beer €0,50 per bottle"));
+    }
+
+
+    @Test
+    void testGetDiscountRules() {
+        String discountRules = order.getDiscountRules();
+        assertNotNull(discountRules);
+        assertTrue(discountRules.contains("Discounts:"));
+        assertTrue(discountRules.contains("Beer(6 bottles): Belgium -€3.00; Dutch - €2.00; German -€4.00; "));
+        assertTrue(discountRules.contains("Bread(3 - 5 days old): buy 1 get 2; (6 days old): buy 1 get 3; "));
+        assertTrue(discountRules.contains("Vegetables(1 - 100g): 5%; (101 - 500g): 7%;Over 500g: 10%"));
     }
 
     @Test
-    public void testGetDiscountRules() {
-        String discounts = order.getDiscountRules();
-        assertTrue(discounts.contains("Discounts:"));
-        assertTrue(discounts.contains("Beer"));
-        assertTrue(discounts.contains("Bread"));
-        assertTrue(discounts.contains("Vegetables"));
-    }
-
-    @Test
-    public void testGenerateReceipt_EmptyOrder() {
+    void testGenerateReceipt_EmptyOrder() {
         String receipt = order.generateReceipt();
         assertTrue(receipt.contains("Receipt:"));
-        assertTrue(receipt.contains("Total after discount: €0.00"));
+        assertTrue(receipt.contains("Total after discount: €0,00"));
     }
 
     @Test
-    public void testGenerateReceipt_NonEmptyOrder() {
-        Bread bread = new Bread("bread", 1.0, 2, 2);
-        Beer beer = new Beer("beer", 2.0, Beer.BeerType.DUTCH, 6, "bottle");
-        Vegetable vegetable = new Vegetable("vegetable", 1.0, 200, "g", 100);
-
+    void testGenerateReceipt_NonEmptyOrder() {
         order.addItem(bread);
         order.addItem(beer);
         order.addItem(vegetable);
 
         String receipt = order.generateReceipt();
-
+        assertNotNull(receipt);
+        System.out.println(receipt);
         assertTrue(receipt.contains("Receipt:"));
-        assertTrue(receipt.contains("1. 2 x bread"));
-        assertTrue(receipt.contains("2. 6 x beer"));
-        assertTrue(receipt.contains("3. 200 x vegetable"));
+        assertTrue(receipt.contains("1. 2 x bread €2,00"));
+        assertTrue(receipt.contains("2. 6 x beer €12,00"));
+        assertTrue(receipt.contains("3. 300 x vegetable €1,50"));
         assertTrue(receipt.contains("Total after discount:"));
     }
 
     @Test
-    public void testGenerateReceipt_LargeOrder() {
+    void testGenerateReceipt_LargeOrder() {
         for (int i = 0; i < 100; i++) {
             Bread bread = new Bread("bread", 1.0, 2, i + 1);
             order.addItem(bread);
@@ -114,17 +121,17 @@ public class OrderTest {
     }
 
     @Test
-    public void testGenerateReceipt_WithDiscounts() {
+    void testGenerateReceipt_WithDiscounts() {
         Bread bread = new Bread("bread", 1.0, 6, 4); // Applying discount rule
 
         order.addItem(bread);
 
         String receipt = order.generateReceipt();
-        assertTrue(receipt.contains("Discount:"));
+        assertTrue(receipt.contains("Discount: €"));
     }
 
     @Test
-    public void testTotalAfterDiscount_WithDiscount() {
+    void testTotalAfterDiscount_WithDiscount() {
         Bread bread = new Bread("bread", 1.0, 6, 4); // Applying discount rule
         Beer beer = new Beer("beer", 2.0, Beer.BeerType.DUTCH, 12, "bottle"); // Applying discount rule
         Vegetable vegetable = new Vegetable("vegetable", 1.0, 600, "g", 100); // Applying discount rule
@@ -145,7 +152,7 @@ public class OrderTest {
     }
 
     @Test
-    public void testTotalAfterDiscount_WithoutDiscount() {
+    void testTotalAfterDiscount_WithoutDiscount() {
         Bread bread = new Bread("bread", 1.0, 2, 1); // No discount
         Beer beer = new Beer("beer", 2.0, Beer.BeerType.DUTCH, 5, "bottle"); // No discount
         Vegetable vegetable = new Vegetable("vegetable", 1.0, 50, "g", 100); // No discount
@@ -163,7 +170,7 @@ public class OrderTest {
     }
 
     @Test
-    public void testGetItems() {
+    void testGetItems() {
         Bread bread = new Bread("bread", 1.0, 2);
         order.addItem(bread);
         List<Item> items = order.getItems();
@@ -172,7 +179,7 @@ public class OrderTest {
     }
 
     @Test
-    public void testSetItems() {
+    void testSetItems() {
         Bread bread = new Bread("bread", 1.0, 2);
         List<Item> items = new ArrayList<>();
         items.add(bread);

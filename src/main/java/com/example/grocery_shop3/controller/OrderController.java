@@ -13,7 +13,7 @@ public class OrderController {
 
     @GetMapping("/test")
     @ResponseBody
-    public String GameTester() {
+    public String APITester() {
         return "yahoo, r u ready to order ur groceries? this is a test :)";
     }
 
