@@ -1,4 +1,4 @@
-package com.example.grocery_shop3;
+package com.example.grocery.shop3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

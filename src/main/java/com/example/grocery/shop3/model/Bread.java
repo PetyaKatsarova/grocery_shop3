@@ -1,38 +1,37 @@
-package com.example.grocery_shop3.model;
+package com.example.grocery.shop3.model;
 
 public class Bread extends Item {
     private int             age;
-    /**
-    * If bread is at least 3 days old get discount: buy 1 get 2; if 6 days old: buy 1 get 3
-    * */
-    private static int DAYS_SMALL_DISCOUNT = 3;
-    private static int DAYS_BIG_DISCOUNT = 6;
-    private static int SMALL_NUM_DEAL = 2;
-    private static int BIG_NUM_DEAL = 3;
 
     /**
-     * if age is bigger than 6 days dont sell
+     * if age is bigger than 6 days don't sell
      * */
     private static final int AGE_DONT_SELL = 7;
 
     public Bread() {
-        super("bread", 1.00, "loaf", 1);
+        super("bread", 1.00, "loaf", new BreadDiscountStrategy());
         this.age = 1;
     }
 
     public Bread(String name, double price, int age) {
-        super(name, price, "loaf");
+        super(name, price, "loaf", new BreadDiscountStrategy());
         setAge(age);
         this.quantity = 1;
     }
 
     public Bread(String name, double price, int age, int quantity) {
-        super(name, price, "loaf");
+        super(name, price, "loaf", new BreadDiscountStrategy());
         setAge(age);
         this.quantity = quantity;
     }
     public Bread(String name, double price, int age, int quantity, String unit) {
-        super(name, price, unit);
+        super(name, price, unit, new BreadDiscountStrategy());
+        setAge(age);
+        this.quantity = quantity;
+    }
+
+    public Bread(String name, double price, int age, int quantity, String unit, BreadDiscountStrategy breadDiscountStrategy) {
+        super(name, price, unit, breadDiscountStrategy);
         setAge(age);
         this.quantity = quantity;
     }
@@ -44,24 +43,21 @@ public class Bread extends Item {
 
     @Override
     public double getTotalAfterDiscount() {
-        return getTotal() - getDiscount();
+        return getTotal() - discountStrategy.getDiscount(this);
     }
 
     @Override
-    public double getDiscount() {
-        if (age >= DAYS_SMALL_DISCOUNT && age < DAYS_BIG_DISCOUNT) {
-            return price * (Math.floor((double) quantity / (SMALL_NUM_DEAL)));
-        } else if (age == DAYS_BIG_DISCOUNT) {
-            return price * (Math.floor((double) quantity / (BIG_NUM_DEAL)));
-        }
-        return 0.0;
+    public String toString() {
+        return String.format("%d x %s €%.2f\n",
+                this.getQuantity(), this.getName(), this.getTotal()) +
+                String.format("   Discount: €%.2f\n", this.discountStrategy.getDiscount(this));
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    private void setAge(int age) {
         if (age >= AGE_DONT_SELL) {
             throw new IllegalArgumentException("Bread is too old to sell, over/equal "+AGE_DONT_SELL+" days old");
         }

@@ -1,25 +1,15 @@
-package com.example.grocery_shop3.model;
+package com.example.grocery.shop3.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
     private List<Item>      items;
-    private static String   BEER_DISCOUNT =  "\nBeer(6 bottles): Belgium -€3.00; Dutch - €2.00; German -€4.00; ";
-    private static String   BREAD_DISCOUNT = "\nBread(3 - 5 days old): buy 1 get 2; (6 days old): buy 1 get 3; ";
-    private static String   VEGETABLE_DISCOUNT = "\nVegetables(1 - 100g): 5%; (101 - 500g): 7%;Over 500g: 10% \n";
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 
     public Order() {
         this.items = new ArrayList<>();
     }
+
 
     public void addItem(Item item) {
         if (!(item instanceof Bread) && !(item instanceof Beer) && !(item instanceof Vegetable)) {
@@ -36,8 +26,9 @@ public class Order {
                 vegetable.getUnit(), beer.getPrice(), beer.getUnit());
     }
 
+    // TODO: is it correct to use here directly the DiscountStrategy classes?
     public String getDiscountRules() {
-        return "Discounts:" + BEER_DISCOUNT + BREAD_DISCOUNT + VEGETABLE_DISCOUNT;
+        return "Discounts:" + new BeerDiscountStrategy().getDiscountRules() + new BreadDiscountStrategy().getDiscountRules() + new VegetableDiscountStrategy().getDiscountRules();
     }
 
     public String generateReceipt() {
@@ -45,14 +36,19 @@ public class Order {
         receipt.append("Receipt:\n");
         double total = 0.0;
         int itemCount = 1;
-        for (Item item : items) {
-            receipt.append(String.format("%d. %d x %s €%.2f\n",
-                    itemCount, item.getQuantity(), item.getName(), item.getTotal()));
-            receipt.append(String.format("   Discount: €%.2f\n", item.getDiscount()));
+        System.out.println("Items list: " + items);
+
+        for (Item item : this.items) {
+            receipt.append(itemCount).append(".) ").append(item.toString());
             itemCount++;
             total += item.getTotalAfterDiscount();
+            System.out.println(item);
         }
         receipt.append(String.format("   Total after discount: €%.2f\n", total));
         return receipt.toString();
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 }

@@ -1,7 +1,7 @@
 package controllerTest;
 
-import com.example.grocery_shop3.controller.OrderController;
-import com.example.grocery_shop3.model.Order;
+import com.example.grocery.shop3.controller.OrderController;
+import com.example.grocery.shop3.model.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package com.example.grocery_shop3.model;
+package com.example.grocery.shop3.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -13,28 +13,31 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Vegetable.class, name = "vegetable")
 })
 public abstract class Item {
-    protected String    name;
-    protected double    price;
-    protected int       quantity;
-    protected String    unit;
+    protected String            name;
+    protected double            price;
+    protected int               quantity;
+    protected String            unit;
+    protected DiscountStrategy  discountStrategy;
 
-    public Item(String name, double price, String unit) {
+    public Item(String name, double price, String unit, DiscountStrategy discountStrategy) {
         setName(name);
         setPrice(price);
         setUnit(unit);
         quantity = 1;
+       this.discountStrategy = discountStrategy;
     }
 
-    public Item(String name, double price, String unit, int quantity) {
+    public Item(String name, double price, String unit, int quantity, DiscountStrategy discountStrategy) {
         setName(name);
         setPrice(price);
         setUnit(unit);
         setQuantity(quantity);
+        this.discountStrategy = discountStrategy;
     }
 
     public abstract double getTotal();
-    public abstract double getDiscount();
     public abstract double getTotalAfterDiscount();
+    public abstract String toString();
 
     public void setName(String name) {
         if (name.isEmpty()) throw new IllegalArgumentException("Name can't be empty string");
@@ -46,12 +49,13 @@ public abstract class Item {
         this.price = price;
     }
 
-    public void setQuantity(int quantity) {
+    // protected because for now used only in class and subclass
+    protected void setQuantity(int quantity) {
         if (quantity <= 0) throw new IllegalArgumentException("Quantity cant be 0 or negative");
         this.quantity = quantity;
     }
 
-    public void setUnit(String unit) {
+    protected void setUnit(String unit) {
         if (unit.isEmpty()) throw new IllegalArgumentException("Unit can't be empty string");
         this.unit = unit;
     }
@@ -71,4 +75,5 @@ public abstract class Item {
     public String getUnit() {
         return unit;
     }
+
 }
