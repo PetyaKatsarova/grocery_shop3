@@ -9,7 +9,7 @@ public class BreadDiscountStrategy extends DiscountStrategy{
     private static int SMALL_NUM_DEAL       = 2;
     private static int BIG_NUM_DEAL         = 3;
 
-    private static String   BREAD_DISCOUNT = "\nBread(3 - 5 days old): buy 1 get 2; (6 days old): buy 1 get 3; ";
+    private static String   DISCOUNT_CONDITIONS = "\nBread(3 - 5 days old): buy 1 get 2; (6 days old): buy 1 get 3; ";
     @Override
     public double getDiscount(Item item) {
         if (!(item instanceof Bread bread)) {
@@ -25,7 +25,7 @@ public class BreadDiscountStrategy extends DiscountStrategy{
 
     @Override
     public String getDiscountRules() {
-        return BREAD_DISCOUNT;
+        return DISCOUNT_CONDITIONS;
     }
 
     @Override

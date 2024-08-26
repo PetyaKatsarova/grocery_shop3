@@ -15,7 +15,7 @@ public class OrderController {
         return "yahoo, r u ready to order ur groceries? this is a test :)";
     }
 
-    @PostMapping("/generate-receipt")
+    @PostMapping("/receipts/current")
     @ResponseBody
     public ResponseEntity<String> generateReceipt(@RequestBody Order order) {
         if (order == null) {
@@ -25,14 +25,14 @@ public class OrderController {
         return new ResponseEntity<>(order.generateReceipt(), HttpStatus.OK);
     }
 
-    @GetMapping("/get-prices")
+    @GetMapping("/prices")
     @ResponseBody
     public String getDefaultPrices() {
         Order order = new Order();
         return order.getItemsPrices();
     }
 
-    @GetMapping("/get-discount-rules")
+    @GetMapping("/discount-rules")
     @ResponseBody
     public String getDefaultDiscounts() {
         Order order = new Order();
@@ -40,4 +40,10 @@ public class OrderController {
     }
 
     // TODO: set/change discount rules values: per class
+//    @GetMapping("/discount-rules")
+//    @ResponseBody
+//    public String getDefaultDiscounts() {
+//        Order order = new Order();
+//        return order.getDiscountRules();
+//    }
 }

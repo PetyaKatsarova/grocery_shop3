@@ -1,7 +1,7 @@
 package com.example.grocery.shop3.model;
 
 public class VegetableDiscountStrategy extends DiscountStrategy {
-    private static String   VEGETABLE_DISCOUNT = "\nVegetables(1 - 100g): 5%; (101 - 500g): 7%;Over 500g: 10% \n";
+    private static String   DISCOUNT_CONDITIONS = "\nVegetables(1 - 100g): 5%; (101 - 500g): 7%; Over 500g: 10%;\n";
     /**
      * discount is in %: example: 5% = 0.05
      * */
@@ -30,7 +30,7 @@ public class VegetableDiscountStrategy extends DiscountStrategy {
 
     @Override
     public String getDiscountRules() {
-        return VEGETABLE_DISCOUNT;
+        return DISCOUNT_CONDITIONS;
     }
 
     @Override

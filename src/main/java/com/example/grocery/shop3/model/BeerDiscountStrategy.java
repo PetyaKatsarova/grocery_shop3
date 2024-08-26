@@ -3,13 +3,13 @@ package com.example.grocery.shop3.model;
 public class BeerDiscountStrategy extends DiscountStrategy {
 
     /**
-     * discounts are per pack of 6 bottles or 6 individual bottles
+     * discounts are per BOTTLES_PER_PACK default is 6
      */
     private static double   BELGIUM_DISCOUNT = 3.00;
     private static double   DUTCH_DISCOUNT = 2.00;
     private static double   GERMAN_DISCOUNT = 4.00;
     private static int      BOTTLES_PER_PACK = 6;
-    private static String   BEER_DISCOUNT =  "\nBeer(6 bottles): Belgium -€3.00; Dutch - €2.00; German -€4.00; ";
+    private static String   DISCOUNT_CONDITIONS =  "\nBeer(6 bottles): Belgium -€3.00; Dutch -€2.00; German -€4.00; ";
 
     public BeerDiscountStrategy() {
 
@@ -42,7 +42,7 @@ public class BeerDiscountStrategy extends DiscountStrategy {
 
     @Override
     public String getDiscountRules() {
-        return BEER_DISCOUNT;
+        return DISCOUNT_CONDITIONS;
     }
 
     @Override
