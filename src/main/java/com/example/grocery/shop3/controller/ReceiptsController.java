@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/grocery-shop")
-public class OrderController {
+public class ReceiptsController {
 
     @GetMapping("/test")
     @ResponseBody
@@ -21,29 +21,7 @@ public class OrderController {
         if (order == null) {
             return new ResponseEntity<>("Order not found", HttpStatus.BAD_REQUEST);
         }
-
+        System.out.println("order: " + order);
         return new ResponseEntity<>(order.generateReceipt(), HttpStatus.OK);
     }
-
-    @GetMapping("/prices")
-    @ResponseBody
-    public String getDefaultPrices() {
-        Order order = new Order();
-        return order.getItemsPrices();
-    }
-
-    @GetMapping("/discount-rules")
-    @ResponseBody
-    public String getDefaultDiscounts() {
-        Order order = new Order();
-        return order.getDiscountRules();
-    }
-
-    // TODO: set/change discount rules values: per class
-//    @GetMapping("/discount-rules")
-//    @ResponseBody
-//    public String getDefaultDiscounts() {
-//        Order order = new Order();
-//        return order.getDiscountRules();
-//    }
 }

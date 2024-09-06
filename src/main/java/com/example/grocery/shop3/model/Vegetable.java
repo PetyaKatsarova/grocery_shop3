@@ -11,17 +11,17 @@ public class Vegetable extends Item {
      * quantity is the weight
      * */
     public Vegetable() {
-        super("vegetable", 1.00, "g", 100, new VegetableDiscountStrategy());
+        super("vegetable", 1.00, "g", 100, new DiscountStrategyVegetable());
         this.weight_for_price = 100.00;
     }
 
     public Vegetable(String name, double price, double weight, double weight_for_price) {
-        super(name, price, "g", 100, new VegetableDiscountStrategy());
+        super(name, price, "g", 100, new DiscountStrategyVegetable());
         setWeight_for_price(weight_for_price);
     }
 
     public Vegetable(String name, double price, int weight, String unit, double weight_for_price) {
-        super(name, price, unit, weight, new VegetableDiscountStrategy());
+        super(name, price, unit, weight, new DiscountStrategyVegetable());
         this.unit = unit;
         setWeight_for_price(weight_for_price);
     }

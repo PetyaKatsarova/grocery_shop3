@@ -11,25 +11,25 @@ public class Beer extends Item {
     private final BeerType  beerType;
 
     public Beer() {
-        super("beer", 0.5, "bottle", 1, new BeerDiscountStrategy());
+        super("beer", 0.5, "bottle", 1, new DiscountStrategyBeer());
         this.beerType = BeerType.DUTCH;
         this.unit = "bottle";
     }
 
     public Beer(String name, double price, BeerType type, String unit) {
-        super(name, price, "bottle", 1, new BeerDiscountStrategy());
+        super(name, price, "bottle", 1, new DiscountStrategyBeer());
         this.beerType = type;
         setUnit(unit);
     }
 
     public Beer(String name, double price, BeerType type, int quantity, String unit) {
-        super(name, price, unit, quantity, new BeerDiscountStrategy());
+        super(name, price, unit, quantity, new DiscountStrategyBeer());
         this.beerType = type;
         setUnit(unit);
     }
 
-    public Beer(String name, double price, BeerType type, int quantity, String unit, BeerDiscountStrategy beerDiscountStrategy) {
-        super(name, price, unit, quantity, beerDiscountStrategy);
+    public Beer(String name, double price, BeerType type, int quantity, String unit, DiscountStrategyBeer discountStrategyBeer) {
+        super(name, price, unit, quantity, discountStrategyBeer);
         this.beerType = type;
         setUnit(unit);
     }

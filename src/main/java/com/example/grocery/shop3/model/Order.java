@@ -28,7 +28,7 @@ public class Order {
 
     // TODO: is it correct to use here directly the DiscountStrategy classes?
     public String getDiscountRules() {
-        return "Discounts:" + new BeerDiscountStrategy().getDiscountRules() + new BreadDiscountStrategy().getDiscountRules() + new VegetableDiscountStrategy().getDiscountRules();
+        return "Discounts:" + new DiscountStrategyBeer() + new DiscountStrategyBread() + new DiscountStrategyVegetable();
     }
 
     public String generateReceipt() {
@@ -46,9 +46,5 @@ public class Order {
         }
         receipt.append(String.format("   Total after discount: €%.2f\n", total));
         return receipt.toString();
-    }
-
-    public List<Item> getItems() {
-        return items;
     }
 }

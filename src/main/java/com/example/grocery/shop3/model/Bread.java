@@ -6,32 +6,32 @@ public class Bread extends Item {
     /**
      * if age is bigger than 6 days don't sell
      * */
-    private static final int AGE_DONT_SELL = 7;
+    private final int AGE_DONT_SELL = 7;
 
     public Bread() {
-        super("bread", 1.00, "loaf", new BreadDiscountStrategy());
+        super("bread", 1.00, "loaf", new DiscountStrategyBread());
         this.age = 1;
     }
 
     public Bread(String name, double price, int age) {
-        super(name, price, "loaf", new BreadDiscountStrategy());
+        super(name, price, "loaf", new DiscountStrategyBread());
         setAge(age);
         this.quantity = 1;
     }
 
     public Bread(String name, double price, int age, int quantity) {
-        super(name, price, "loaf", new BreadDiscountStrategy());
+        super(name, price, "loaf", new DiscountStrategyBread());
         setAge(age);
         this.quantity = quantity;
     }
     public Bread(String name, double price, int age, int quantity, String unit) {
-        super(name, price, unit, new BreadDiscountStrategy());
+        super(name, price, unit, new DiscountStrategyBread());
         setAge(age);
         this.quantity = quantity;
     }
 
-    public Bread(String name, double price, int age, int quantity, String unit, BreadDiscountStrategy breadDiscountStrategy) {
-        super(name, price, unit, breadDiscountStrategy);
+    public Bread(String name, double price, int age, int quantity, String unit, DiscountStrategyBread discountStrategyBread) {
+        super(name, price, unit, discountStrategyBread);
         setAge(age);
         this.quantity = quantity;
     }
