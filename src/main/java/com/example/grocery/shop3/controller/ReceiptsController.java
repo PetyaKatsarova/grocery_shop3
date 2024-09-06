@@ -1,7 +1,7 @@
 package com.example.grocery.shop3.controller;
 
+import com.example.grocery.shop3.model.Receipt;
 import org.springframework.http.HttpStatus;
-import com.example.grocery.shop3.model.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +17,11 @@ public class ReceiptsController {
 
     @PostMapping("/receipts/current")
     @ResponseBody
-    public ResponseEntity<String> generateReceipt(@RequestBody Order order) {
-        if (order == null) {
-            return new ResponseEntity<>("Order not found", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> generateReceipt(@RequestBody Receipt receipt) {
+        if (receipt == null) {
+            return new ResponseEntity<>("Receipt not tound", HttpStatus.BAD_REQUEST);
         }
-        System.out.println("order: " + order);
-        return new ResponseEntity<>(order.generateReceipt(), HttpStatus.OK);
+        System.out.println("receipt: " + receipt);
+        return new ResponseEntity<>(receipt.generateReceipt(), HttpStatus.OK);
     }
 }

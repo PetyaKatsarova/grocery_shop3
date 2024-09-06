@@ -35,12 +35,15 @@ public class DiscountStrategyBread implements DiscountStrategy {
         }
         if (bread.getAge() >= daysSmallDiscount && bread.getAge() < daysBigDiscount) {
             return bread.getPrice() * Math.floor((double) bread.getQuantity() / smallNumDeal);
-        } else if (bread.getAge() == daysBigDiscount) {
+        } else if (bread.getAge() >= daysBigDiscount) {
             return bread.getPrice() * Math.floor((double) bread.getQuantity() / bigNumDeal);
         }
         return 0.0;
     }
 
+    /**
+     * the setters are needed for spring to be able to update fields with json via http post req
+     * */
     public void setDaysSmallDiscount(int daysSmallDiscount) {
         this.daysSmallDiscount = daysSmallDiscount;
     }

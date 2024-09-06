@@ -3,10 +3,10 @@ package com.example.grocery.shop3.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Receipt {
     private List<Item>      items;
 
-    public Order() {
+    public Receipt() {
         this.items = new ArrayList<>();
     }
 
@@ -46,5 +46,9 @@ public class Order {
         }
         receipt.append(String.format("   Total after discount: €%.2f\n", total));
         return receipt.toString();
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }
