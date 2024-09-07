@@ -1,6 +1,7 @@
 package com.example.grocery.shop3.model;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 
 public class Receipt {
@@ -50,5 +51,9 @@ public class Receipt {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 }
