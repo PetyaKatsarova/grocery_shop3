@@ -1,27 +1,36 @@
 package com.example.grocery.shop3.controller;
 
-import com.example.grocery.shop3.model.Receipt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.grocery.shop3.model.Receipt;
 
 @RestController
 @RequestMapping("/grocery-shop")
 public class ReceiptsController {
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String APITester() {
-        return "yahoo, r u ready to order ur groceries? this is a test :)";
+    @PostMapping("/receipts/current")
+    public ResponseEntity<String> generateReceipt(@RequestBody Receipt receipt) {
+        if (receipt == null || receipt.getItems().isEmpty()) {
+            return new ResponseEntity<>("No items were entered in the receipt", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            if (receipt == null) {
+                return new ResponseEntity<>("Receipt not found", HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(receipt.generateReceipt(), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            // Return a response entity with a 400 status code and the custom message
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @PostMapping("/receipts/current")
-    @ResponseBody
-    public ResponseEntity<String> generateReceipt(@RequestBody Receipt receipt) {
-        if (receipt == null) {
-            return new ResponseEntity<>("Receipt not tound", HttpStatus.BAD_REQUEST);
-        }
-        System.out.println("receipt: " + receipt);
-        return new ResponseEntity<>(receipt.generateReceipt(), HttpStatus.OK);
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

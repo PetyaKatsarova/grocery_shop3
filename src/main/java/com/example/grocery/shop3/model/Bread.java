@@ -49,11 +49,8 @@ public class Bread extends Item {
 
     private void setAge(int age) {
         if (age >= AGE_DONT_SELL) {
-            throw new IllegalArgumentException("Bread is too old to sell, over/equal "+AGE_DONT_SELL+" days old");
+            throw new IllegalArgumentException("The bread you entered is too old to be sold (age " + age + " days).");
         }
         this.age = age;
     }
 }
-
-
-
