@@ -24,7 +24,6 @@ public class ReceiptsController {
             }
             return new ResponseEntity<>(receipt.generateReceipt(), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            // Return a response entity with a 400 status code and the custom message
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

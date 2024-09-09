@@ -11,7 +11,6 @@ public class Receipt {
         this.items = new ArrayList<>();
     }
 
-
     public void addItem(Item item) {
         if (!(item instanceof Bread) && !(item instanceof Beer) && !(item instanceof Vegetable)) {
             throw new IllegalArgumentException("We have only bread, beer or vegetable.");
@@ -27,7 +26,6 @@ public class Receipt {
                 vegetable.getUnit(), beer.getPrice(), beer.getUnit());
     }
 
-    // TODO: is it correct to use here directly the DiscountStrategy classes?
     public String getDiscountRules() {
         return "Discounts:" + new DiscountStrategyBeer() + new DiscountStrategyBread() + new DiscountStrategyVegetable();
     }

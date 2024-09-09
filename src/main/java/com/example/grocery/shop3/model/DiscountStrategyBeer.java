@@ -5,10 +5,10 @@ public class DiscountStrategyBeer implements DiscountStrategy {
     /**
      * discounts are per bottlesPerPack default is 6
      */
-    private double belgiumDiscount;
-    private double dutchDiscount;
-    private double germanDiscount;
-    private int bottlesPerPack;
+    private double  belgiumDiscount;
+    private double  dutchDiscount;
+    private double  germanDiscount;
+    private int     bottlesPerPack;
 
     public DiscountStrategyBeer() {
         this.belgiumDiscount = 3.00;

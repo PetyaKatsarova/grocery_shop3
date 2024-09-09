@@ -78,7 +78,7 @@ public class BeerTest {
     }
 
     @Test
-    public void testEdgeCaseLargeQuantity() {
+    public void testLargeQuantity() {
         Beer beer = new Beer("Dutch Beer", 2.0, Beer.BeerType.DUTCH, 1000000, "bottle");
         assertEquals(2000000.0, beer.getTotal()); // 2.0 * 1,000,000
         assertEquals(1666668, beer.getTotalAfterDiscount()); // 2 million - ( 1million/6 = 166 666)*2 = 2m - 333_332 = 1_666_668

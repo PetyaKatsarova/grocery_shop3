@@ -35,9 +35,6 @@ public abstract class Item {
         this.discountStrategy = discountStrategy;
     }
 
-//    public abstract double getTotal();
-//    public abstract String toString();
-
     public double getTotal() {
         return price * quantity;
     }
@@ -47,9 +44,8 @@ public abstract class Item {
      * */
     public double getTotalAfterDiscount() {
         double totalAfterDiscount = getTotal() - discountStrategy.getDiscount(this);
-        if (totalAfterDiscount < 0) {
+        if (totalAfterDiscount < 0)
            return 0;
-        }
         return totalAfterDiscount;
     }
 
@@ -74,6 +70,9 @@ public abstract class Item {
         this.unit = unit;
     }
 
+    /**
+     * needed for the tests
+     * */
     public String getName() {
         return name;
     }

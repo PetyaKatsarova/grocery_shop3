@@ -34,9 +34,9 @@ public class DiscountStrategyBread implements DiscountStrategy {
             throw new IllegalArgumentException("Item must be Bread");
         }
         if (bread.getAge() >= daysSmallDiscount && bread.getAge() < daysBigDiscount) {
-            return bread.getPrice() * Math.floor((double) bread.getQuantity() / smallNumDeal);
+            return bread.getPrice() * Math.floor((double) bread.getQuantity() / smallNumDeal) * (smallNumDeal - 1); // last part is in case the num is changed
         } else if (bread.getAge() >= daysBigDiscount) {
-            return bread.getPrice() * Math.floor((double) bread.getQuantity() / bigNumDeal);
+            return bread.getPrice() * Math.floor((double) bread.getQuantity() / bigNumDeal) * (bigNumDeal - 1); // buy 1 get 3(get 2 free)
         }
         return 0.0;
     }
