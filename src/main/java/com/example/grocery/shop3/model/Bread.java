@@ -37,16 +37,6 @@ public class Bread extends Item {
     }
 
     @Override
-    public double getTotal() {
-        return price * quantity;
-    }
-
-    @Override
-    public double getTotalAfterDiscount() {
-        return getTotal() - discountStrategy.getDiscount(this);
-    }
-
-    @Override
     public String toString() {
         return String.format("%d x %s €%.2f\n",
                 this.getQuantity(), this.getName(), this.getTotal()) +

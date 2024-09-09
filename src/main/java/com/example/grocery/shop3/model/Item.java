@@ -35,9 +35,23 @@ public abstract class Item {
         this.discountStrategy = discountStrategy;
     }
 
-    public abstract double getTotal();
-    public abstract double getTotalAfterDiscount();
-    public abstract String toString();
+//    public abstract double getTotal();
+//    public abstract String toString();
+
+    public double getTotal() {
+        return price * quantity;
+    }
+
+    /**
+     * if discount is more than actual total price: give it for free: return 0
+     * */
+    public double getTotalAfterDiscount() {
+        double totalAfterDiscount = getTotal() - discountStrategy.getDiscount(this);
+        if (totalAfterDiscount < 0) {
+           return 0;
+        }
+        return totalAfterDiscount;
+    }
 
     public void setName(String name) {
         if (name.isEmpty()) throw new IllegalArgumentException("Name can't be empty string");
