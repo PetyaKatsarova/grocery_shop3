@@ -15,9 +15,6 @@ public class ReceiptsController {
 
     @PostMapping("/receipts/current")
     public ResponseEntity<String> generateReceipt(@RequestBody Receipt receipt) {
-        if (receipt == null || receipt.getItems().isEmpty()) {
-            return new ResponseEntity<>("No items were entered in the receipt", HttpStatus.BAD_REQUEST);
-        }
         try {
             if (receipt == null) {
                 return new ResponseEntity<>("Receipt not found", HttpStatus.BAD_REQUEST);
@@ -27,6 +24,21 @@ public class ReceiptsController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @PostMapping("/receipts/current")
+//    public ResponseEntity<String> generateReceipt(@RequestBody Receipt receipt) {
+//        if (receipt == null || receipt.getItems().isEmpty()) {
+//            return new ResponseEntity<>("No items were entered in the receipt", HttpStatus.BAD_REQUEST);
+//        }
+//        try {
+//            if (receipt == null) {
+//                return new ResponseEntity<>("Receipt not found", HttpStatus.BAD_REQUEST);
+//            }
+//            return new ResponseEntity<>(receipt.generateReceipt(), HttpStatus.OK);
+//        } catch (IllegalArgumentException e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {

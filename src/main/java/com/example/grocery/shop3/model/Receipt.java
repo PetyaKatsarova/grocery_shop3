@@ -31,21 +31,25 @@ public class Receipt {
     }
 
     public String generateReceipt() {
+        if (items == null || items.isEmpty()) {
+            return "No items were added to the receipt.";
+        }
+
         StringBuilder receipt = new StringBuilder();
         receipt.append("Receipt:\n");
         double total = 0.0;
         int itemCount = 1;
-        System.out.println("Items list: " + items);
 
         for (Item item : this.items) {
             receipt.append(itemCount).append(".) ").append(item.toString());
             itemCount++;
             total += item.getTotalAfterDiscount();
-            System.out.println(item);
         }
+
         receipt.append(String.format("   Total after discount: €%.2f\n", total));
         return receipt.toString();
     }
+
 
     public void setItems(List<Item> items) {
         this.items = items;
