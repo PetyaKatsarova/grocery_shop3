@@ -1,4 +1,4 @@
-package modelTests;
+package modelTest;
 
 import org.junit.jupiter.api.Test;
 import com.example.grocery.shop3.model.Bread;
