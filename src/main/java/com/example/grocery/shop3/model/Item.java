@@ -49,12 +49,12 @@ public abstract class Item {
         return totalAfterDiscount;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         if (name.isEmpty()) throw new IllegalArgumentException("Name can't be empty string");
         this.name = name;
     }
 
-    public void setPrice(double price) {
+    protected void setPrice(double price) {
         if (price <= 0.0) throw new IllegalArgumentException("Price cant be 0 or negative");
         this.price = price;
     }

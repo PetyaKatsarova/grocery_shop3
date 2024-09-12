@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/grocery-shop")
-public class ChangeDiscountController {
+public class ChangeDiscountValuesController {
 
     @PostMapping("change-discount/beer")
     @ResponseBody

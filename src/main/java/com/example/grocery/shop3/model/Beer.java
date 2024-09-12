@@ -4,7 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class Beer extends Item {
     public enum BeerType {BELGIUM, DUTCH, GERMAN}
-
     private final BeerType beerType;
 
     public Beer() {
@@ -39,14 +38,14 @@ public class Beer extends Item {
     }
 
     @Override
-    public void setUnit(String unit) {
+    protected void setUnit(String unit) {
         if (!unit.equals("bottle") && !unit.equals("pack")) {
             throw new IllegalArgumentException("Beer can only be sold in bottles or packs.");
         }
         this.unit = unit;
     }
 
-    public String unitCorrectSpellingHelper() {
+    private String unitCorrectSpellingHelper() {
         if (this.getUnit().equals("bottle")) {
             return "bottles";
         }

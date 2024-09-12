@@ -56,18 +56,33 @@ public class BeerTest {
         assertEquals("Beer can only be sold in bottles or packs.", exception.getMessage());
     }
 
+    // test private method correctSpelling of unit
     @Test
-    public void testUnitCorrectSpellingHelper() {
+    public void testToStringWithBottles() {
+        // Test for "bottle" -> "bottles"
         Beer beerBottles = new Beer("Dutch Beer", 2.0, Beer.BeerType.DUTCH, 1, "bottle");
-        assertEquals("bottles", beerBottles.unitCorrectSpellingHelper());
+        String expectedString = "1 bottles x Dutch Beer €2,00\n   Discount: €0,00\n";
+        assertEquals(expectedString, beerBottles.toString(),
+                "The toString method should return 'bottles' for unit 'bottle'");
+    }
 
+    @Test
+    public void testToStringWithPacks() {
+        // Test for "pack" -> "packs"
         Beer beerPacks = new Beer("Belgium Beer", 2.0, Beer.BeerType.BELGIUM, 1, "pack");
-        assertEquals("packs", beerPacks.unitCorrectSpellingHelper());
+        String expectedString = "1 packs x Belgium Beer €2,00\n   Discount: €3,00\n";
+        assertEquals(expectedString, beerPacks.toString(),
+                "The toString method should return 'packs' for unit 'pack'");
+    }
 
+    @Test
+    public void testInvalidUnitThrowsException() {
+        // Test for an invalid unit -> Exception should be thrown
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Beer("Invalid Beer", 2.0, Beer.BeerType.BELGIUM, 1, "invalidUnit").unitCorrectSpellingHelper();
+            new Beer("Invalid Beer", 2.0, Beer.BeerType.BELGIUM, 1, "invalidUnit");
         });
-        assertEquals("Beer can only be sold in bottles or packs.", exception.getMessage());
+        assertEquals("Beer can only be sold in bottles or packs.", exception.getMessage(),
+                "An exception should be thrown for an invalid unit");
     }
 
     @Test
