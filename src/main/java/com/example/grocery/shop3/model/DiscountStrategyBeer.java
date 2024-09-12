@@ -58,19 +58,19 @@ public class DiscountStrategyBeer implements DiscountStrategy {
     /**
      * setters are needed for Spring to automatically deserialize the JSON into the DiscountStrategyBeer object and set the new, not default values using the setters.
      * */
-    public void setBelgiumDiscount(double belgiumDiscount) {
+    private void setBelgiumDiscount(double belgiumDiscount) {
         this.belgiumDiscount = belgiumDiscount;
     }
 
-    public void setDutchDiscount(double dutchDiscount) {
+    private void setDutchDiscount(double dutchDiscount) {
         this.dutchDiscount = dutchDiscount;
     }
 
-    public void setGermanDiscount(double germanDiscount) {
+    private void setGermanDiscount(double germanDiscount) {
         this.germanDiscount = germanDiscount;
     }
 
-    public void setBottlesPerPack(int bottlesPerPack) {
+    private void setBottlesPerPack(int bottlesPerPack) {
         this.bottlesPerPack = bottlesPerPack;
     }
 }

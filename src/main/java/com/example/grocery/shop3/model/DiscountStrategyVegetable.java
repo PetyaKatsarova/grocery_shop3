@@ -44,15 +44,15 @@ public class DiscountStrategyVegetable implements DiscountStrategy {
                 "%; Over 500g: " + (this.bigDiscount * 100) + "%;\n";
     }
 
-    public void setSmallDiscount(double smallDiscount) {
+    private void setSmallDiscount(double smallDiscount) {
         this.smallDiscount = smallDiscount;
     }
 
-    public void setMediumDiscount(double mediumDiscount) {
+    private void setMediumDiscount(double mediumDiscount) {
         this.mediumDiscount = mediumDiscount;
     }
 
-    public void setBigDiscount(double bigDiscount) {
+    private void setBigDiscount(double bigDiscount) {
         this.bigDiscount = bigDiscount;
     }
 }

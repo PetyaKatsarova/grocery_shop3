@@ -44,19 +44,19 @@ public class DiscountStrategyBread implements DiscountStrategy {
     /**
      * the setters are needed for spring to be able to update fields with json via http post req
      * */
-    public void setDaysSmallDiscount(int daysSmallDiscount) {
+    private void setDaysSmallDiscount(int daysSmallDiscount) {
         this.daysSmallDiscount = daysSmallDiscount;
     }
 
-    public void setDaysBigDiscount(int daysBigDiscount) {
+    private void setDaysBigDiscount(int daysBigDiscount) {
         this.daysBigDiscount = daysBigDiscount;
     }
 
-    public void setSmallNumDeal(int smallNumDeal) {
+    private void setSmallNumDeal(int smallNumDeal) {
         this.smallNumDeal = smallNumDeal;
     }
 
-    public void setBigNumDeal(int bigNumDeal) {
+    private void setBigNumDeal(int bigNumDeal) {
         this.bigNumDeal = bigNumDeal;
     }
 }
