@@ -29,6 +29,21 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,7 +68,20 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-    </dependencies>
+<!--		<dependency>-->
+<!--			<groupId>com.networknt</groupId>-->
+<!--			<artifactId>json-schema-validator</artifactId>-->
+<!--			<version>3.0.0</version> &lt;!&ndash; Check for the latest version on Maven Central &ndash;&gt;-->
+<!--		</dependency>-->
+
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.4.1</version> <!-- For JSON parsing -->
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>

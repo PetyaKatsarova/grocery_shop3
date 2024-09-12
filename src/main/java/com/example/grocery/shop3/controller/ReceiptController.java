@@ -15,7 +15,7 @@ public class ReceiptController {
     @PostMapping("/receipts/current")
     public ResponseEntity<String> generateReceipt(@RequestBody Receipt receipt) {
         try {
-            if (receipt == null) {
+            if (receipt == null || receipt.getItems().isEmpty()) {
                 return new ResponseEntity<>("Receipt not found", HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<>(receipt.generateReceipt(), HttpStatus.OK);

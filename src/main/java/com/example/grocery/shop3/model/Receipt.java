@@ -50,11 +50,6 @@ public class Receipt {
         return receipt.toString();
     }
 
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
     public List<Item> getItems() {
         return items;
     }
